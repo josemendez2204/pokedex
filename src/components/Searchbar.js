@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import styled from "styled-components"
 import { AiOutlineSearch, AiOutlineCloseCircle } from "react-icons/ai";
-
+import PokemonBox from './PokemonBox';
 
 const SearchContainer= styled.div`
 width: 230px;
@@ -32,42 +32,40 @@ width: 100%;
 outline:none;
 `;
 
-
-
 function Searchbar() {
   const [inputValue, setInputValue] = useState("");
+  const [jsonResponse, setJsonResponse] = useState("");
+  const [dinamic, setDinamic]= useState(true);
   const url= `https://pokeapi.co/api/v2/pokemon/${inputValue}`
+
   const keyPress= (event) => {
     if(event.key === 'Enter'){
+    if (inputValue === "") {
+     return false
+    }
     const apiFetch= async () => {
     const response= await fetch (url);
     if (response.status >= 200 && response.status <= 299) {
-    const responseJSON= await response.json()
-    console.log(responseJSON.sprites.front_default,responseJSON.name) 
+    const responseJSON= await response.json();
+    setJsonResponse (responseJSON) 
     } else {
-      console.log("Something happened, pokemon not found...")
+    setJsonResponse (false)
     }
     
   }
   apiFetch()
+  console.log(jsonResponse)
+  setDinamic (false)
   }
   }
-  
-  // const apiFetch= async () => {
-  //   const response= await fetch (url);
-  //   const responseJSON= await response.json()
-  //   console.log(responseJSON) 
-  // } 
-
-
-
   return (
+    <Fragment>
     <SearchContainer>
       <SearchIcon>
         {inputValue.length <= 0 ? (
           <AiOutlineSearch size={20} />
         ) : (
-          <AiOutlineCloseCircle onClick={() => setInputValue("")} size={20} />
+          <AiOutlineCloseCircle onClick={() => setInputValue("") } size={20} />
         )}
       </SearchIcon>
 
@@ -77,6 +75,8 @@ function Searchbar() {
         onKeyPress={keyPress}
       />
     </SearchContainer>
+    <div> {dinamic ? null : (<PokemonBox jsonResponse= {jsonResponse}   />)} </div>
+    </Fragment>
   );
 }
 
