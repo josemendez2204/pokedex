@@ -32,10 +32,37 @@ width: 100%;
 outline:none;
 `;
 
+const Loader= styled.div `
+  margin-top: 60px;
+  margin-left:60px ;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid black;
+  border-bottom: 16px solid black;
+  width: 90px;
+  height: 90px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+`;
+
+
+
 function Searchbar() {
   const [inputValue, setInputValue] = useState("");
   const [jsonResponse, setJsonResponse] = useState("");
   const [dinamic, setDinamic]= useState(true);
+  const [loader, setLoader]= useState (false)
   const url= `https://pokeapi.co/api/v2/pokemon/${inputValue}`
 
   const keyPress= (event) => {
@@ -44,11 +71,14 @@ function Searchbar() {
      return false
     }
     const apiFetch= async () => {
+    setLoader (true)
     const response= await fetch (url);
     if (response.status >= 200 && response.status <= 299) {
     const responseJSON= await response.json();
+    setLoader (false)
     setJsonResponse (responseJSON) 
-    } else {
+     } else {
+    setLoader (false)
     setJsonResponse (false)
     }
     
@@ -75,9 +105,8 @@ function Searchbar() {
         onKeyPress={keyPress}
       />
     </SearchContainer>
-    <div> {dinamic ? null : (<PokemonBox jsonResponse= {jsonResponse}   />)} </div>
+    {loader ? <Loader/> : dinamic || (<div><PokemonBox jsonResponse= {jsonResponse}   /></div>)}
     </Fragment>
   );
 }
-
 export default Searchbar

@@ -27,7 +27,7 @@ export default function PokemonBox(props) {
   if(props.jsonResponse) {
     return (
       <Pokemonbox>
-      <div><img src={props.jsonResponse.sprites.front_default} alt="Girl in a jacket" width="150" height="150"/></div> 
+      <div><img src={props.jsonResponse.sprites.front_default} alt="pokemon" width="150" height="150"/></div> 
        <h2>{props.jsonResponse.name}</h2>
        <h5>Weight</h5>
        {props.jsonResponse.weight}
