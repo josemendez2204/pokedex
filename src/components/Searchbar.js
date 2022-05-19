@@ -62,8 +62,10 @@ function Searchbar() {
   const [inputValue, setInputValue] = useState("");
   const [jsonResponse, setJsonResponse] = useState("");
   const [dinamic, setDinamic]= useState(true);
-  const [loader, setLoader]= useState (false)
-  const url= `https://pokeapi.co/api/v2/pokemon/${inputValue}`
+  const [loader, setLoader]= useState (false);
+  const removeCaseSensitive = inputValue;
+  const remover= removeCaseSensitive.toLowerCase();
+  const url= `https://pokeapi.co/api/v2/pokemon/${remover}`
 
   const keyPress= (event) => {
     if(event.key === 'Enter'){
@@ -100,7 +102,7 @@ function Searchbar() {
       </SearchIcon>
 
       <SearchInput
-        value={inputValue}
+        value={remover}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyPress={keyPress}
       />
