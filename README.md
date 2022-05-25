@@ -1,5 +1,5 @@
 
-to see the app already running please click this link https://vercel.com/josemendez2204/pokedex
+to see the app already running please click this link https://pokedex-red-delta.vercel.app/
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
