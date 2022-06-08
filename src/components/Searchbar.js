@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react'
 import styled from "styled-components"
 import { AiOutlineSearch, AiOutlineCloseCircle } from "react-icons/ai";
 import PokemonBox from './PokemonBox';
+import { motion } from "framer-motion"
 
 const SearchContainer= styled.div`
 width: 230px;
@@ -107,7 +108,10 @@ function Searchbar() {
         onKeyPress={keyPress}
       />
     </SearchContainer>
-    {loader ? <Loader/> : dinamic || (<div><PokemonBox jsonResponse= {jsonResponse}   /></div>)}
+    {loader ? <Loader/> : dinamic ||  <motion.div
+    initial= {{scale: 0.1}}
+    animate={{ scale: 1.1 }}
+    transition={{ duration: 1 }}> <div><PokemonBox jsonResponse= {jsonResponse}   /></div> </motion.div>}
     </Fragment>
   );
 }
