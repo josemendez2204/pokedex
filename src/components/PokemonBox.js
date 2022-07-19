@@ -1,26 +1,7 @@
 import React from 'react'
-import styled from "styled-components"
+import { Pokemonbox, Notfound } from '../styles/PokemonBox'
 
-const Pokemonbox= styled.div`
-margin-top: 60px;
-width: 240px ;
-height: 370px ;
-background: white ;
-display:flex;
-flex-direction: column;
-align-items:center;
-align-content:center;
-border-radius: 10px;
-border-style: solid;
-`;
 
-const Notfound= styled.div `
-margin-top: 60px;
-width: 240px ;
-background-color: white ;
-border-radius: 10px;
-border-style: solid;
-`;
 
 export default function PokemonBox(props) {
   
